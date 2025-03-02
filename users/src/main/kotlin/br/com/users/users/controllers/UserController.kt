@@ -1,7 +1,7 @@
 package br.com.users.users.controllers
 
-import br.com.users.users.models.UserModel
 import br.com.users.users.dto.UserResponseDTO
+import br.com.users.users.models.UserModel
 import br.com.users.users.services.UserService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.MediaType

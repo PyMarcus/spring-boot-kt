@@ -1,15 +1,18 @@
 package br.com.users.users.services
 
-import br.com.users.users.models.UserModel
 import br.com.users.users.dto.UserResponseDTO
+import br.com.users.users.models.UserModel
 import br.com.users.users.repository.UserRepository
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import java.util.logging.Logger
 
 @Service
 class UserService {
 
+    @Autowired
     private lateinit var userRepository: UserRepository
+
     private val logger: Logger = Logger.getLogger(UserService::class.java.name)
 
     fun findAll(): List<UserResponseDTO>{

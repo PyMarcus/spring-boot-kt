@@ -1,4 +1,4 @@
-import br.com.users.users.models.UserModel
+package br.com.users.users.models
 
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
@@ -12,7 +12,7 @@ import jakarta.persistence.GenerationType
 data class UserModel(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long,
+    var id: Long = 0,  // Adicione um valor padrão
     @Column
-    val name: String
+    val name: String = ""  // Adicione um valor padrão
 )
