@@ -12,7 +12,7 @@ import jakarta.persistence.GenerationType
 data class UserModel(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Long = 0,  // Adicione um valor padrão
+    var id: Long = 0,
     @Column
-    val name: String = ""  // Adicione um valor padrão
+    var name: String = ""
 )

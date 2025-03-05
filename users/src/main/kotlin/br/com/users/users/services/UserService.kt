@@ -1,6 +1,8 @@
 package br.com.users.users.services
 
 import br.com.users.users.data.vo.v1.UserVO
+import br.com.users.users.data.vo.v2.UserVO as UserVO2
+
 import br.com.users.users.mapper.DozerMapper
 import br.com.users.users.models.UserModel
 import br.com.users.users.repository.UserRepository
@@ -14,11 +16,14 @@ class UserService {
     @Autowired
     private lateinit var userRepository: UserRepository
 
+    @Autowired
+    private lateinit var dozerMapper: DozerMapper
+
     private val logger: Logger = Logger.getLogger(UserService::class.java.name)
 
     fun findAll(): List<UserVO>{
         logger.info("Finding all users")
-        return DozerMapper.parseListObject(userRepository.findAll(), UserVO::class.java)
+        return dozerMapper.parseListObject(userRepository.findAll(), UserVO::class.java)
     }
 
     fun findUserById(id: Long): UserVO?{
@@ -26,7 +31,7 @@ class UserService {
         val userOptional = userRepository.findById(id)
         return if(userOptional.isPresent){
             val user = userOptional.get()
-             DozerMapper.parseObject(user, UserVO::class.java)
+            dozerMapper.parseObject(user, UserVO::class.java)
         }else{
              null
         }
@@ -36,6 +41,18 @@ class UserService {
         logger.info("Creating user ${user}")
         val entity = DozerMapper.parseObject(user, UserModel::class.java)
         userRepository.save(entity)
-        return DozerMapper.parseObject(user, UserVO::class.java)
+        return dozerMapper.parseObject(entity, UserVO::class.java)
+    }
+
+    fun findAllV2(): List<UserVO2>{
+        logger.info("Finding all users")
+        return dozerMapper.parseListObject(userRepository.findAll(), UserVO2::class.java)
+    }
+
+    fun createV2(user: UserVO2): UserVO2{
+        logger.info("Creating user ${user}")
+        val entity = dozerMapper.mapVOtoEntity(user)
+        userRepository.save(entity)
+        return dozerMapper.mapEntityToVO(entity)
     }
 }
