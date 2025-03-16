@@ -5,7 +5,9 @@ import br.com.users.users.models.UserModel
 import com.github.dozermapper.core.DozerBeanMapperBuilder
 import com.github.dozermapper.core.Mapper
 import org.springframework.stereotype.Service
-import java.util.Date
+import java.util.*
+import br.com.users.users.data.vo.v1.UserVO as UserVO1
+
 
 @Service
 object DozerMapper {
@@ -29,6 +31,14 @@ object DozerMapper {
         uVO.name = user.name
         uVO.date = Date()
         return uVO
+    }
+
+
+    fun mapVOtoEntity(user: UserVO1) : UserModel{
+        val u: UserModel = UserModel()
+        u.id = user.key
+        u.name = user.name
+        return u
     }
 
     fun mapVOtoEntity(user: UserVO) : UserModel{
